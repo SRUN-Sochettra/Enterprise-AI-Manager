@@ -1,5 +1,7 @@
 # 🚀 Enterprise AI Manager
 
+## Used with Basic-SpringBoot for backend [Basic-SpringBoot](https://github.com/SRUN-Sochettra/Basic-SpringBoot.git)
+
 ### The Next-Gen Management Interface Supercharged with AI
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.2.2-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
