@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "@/src/context/AuthContext";
@@ -17,10 +18,13 @@ export default function Navbar() {
         { href: "/contact", label: "Contact" },
         { href: "/employees", label: "Employees" },
         { href: "/products", label: "Products" },
+        { href: "/dashboard", label: "📊 Dashboard" },
+        { href: "/search", label: "🔍 Search" }, // ← ADD
+        { href: "/ai", label: "🤖 AI" },
     ];
 
-    const handleLogout = () => {
-        logoutUser();
+    const handleLogout = async () => {
+        await logoutUser();
         setIsOpen(false);
         router.push("/");
     };
@@ -44,9 +48,10 @@ export default function Navbar() {
                                 key={link.href}
                                 href={link.href}
                                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
-                                    ${
-                                        pathname === link.href
-                                            ? "bg-blue-600 text-white shadow-md"
+                                    ${pathname === link.href
+                                        ? "bg-blue-600 text-white shadow-md"
+                                        : link.href === "/ai"
+                                            ? "text-purple-400 hover:bg-purple-700 hover:text-white"
                                             : "text-gray-300 hover:bg-gray-700 hover:text-white"
                                     }`}
                             >
@@ -54,23 +59,51 @@ export default function Navbar() {
                             </Link>
                         ))}
 
-                        {/* Auth Button (Desktop) */}
+                        {/* Auth Section (Desktop) */}
                         {isLoggedIn() ? (
-                            <button
-                                id="desktop-logout-btn"
-                                onClick={handleLogout}
-                                className="ml-2 px-4 py-2 rounded-lg text-sm font-medium bg-red-600 text-white hover:bg-red-700 transition-all duration-200 shadow-md cursor-pointer"
-                            >
-                                Logout
-                            </button>
+                            <div className="flex items-center gap-2 ml-2">
+                                {/* Google Avatar */}
+                                {user?.image ? (
+                                    <Image
+                                        src={user.image}
+                                        alt={user.username || "User"}
+                                        width={32}
+                                        height={32}
+                                        className="rounded-full border-2 border-gray-600"
+                                    />
+                                ) : (
+                                    <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold border-2 border-gray-600">
+                                        {(user?.username || user?.email || "U")[0].toUpperCase()}
+                                    </div>
+                                )}
+                                {/* Username */}
+                                <span className="text-gray-300 text-sm max-w-[100px] truncate">
+                                    {user?.username || user?.email?.split("@")[0]}
+                                </span>
+                                {/* Role Badge */}
+                                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${user?.role === "ADMIN"
+                                    ? "bg-red-600/20 text-red-400"
+                                    : user?.provider === "google"
+                                        ? "bg-blue-600/20 text-blue-400"
+                                        : "bg-green-600/20 text-green-400"
+                                    }`}>
+                                    {user?.provider === "google" ? "Google" : user?.role}
+                                </span>
+                                <button
+                                    id="desktop-logout-btn"
+                                    onClick={handleLogout}
+                                    className="px-4 py-2 rounded-lg text-sm font-medium bg-red-600 text-white hover:bg-red-700 transition-all duration-200 shadow-md cursor-pointer"
+                                >
+                                    Logout
+                                </button>
+                            </div>
                         ) : (
                             <Link
                                 href="/login"
                                 className={`ml-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
-                                    ${
-                                        pathname === "/login"
-                                            ? "bg-blue-600 text-white shadow-md"
-                                            : "bg-emerald-600 text-white hover:bg-emerald-700 shadow-md"
+                                    ${pathname === "/login"
+                                        ? "bg-blue-600 text-white shadow-md"
+                                        : "bg-emerald-600 text-white hover:bg-emerald-700 shadow-md"
                                     }`}
                             >
                                 Login
@@ -84,32 +117,12 @@ export default function Navbar() {
                         className="md:hidden text-gray-300 hover:text-white focus:outline-none"
                     >
                         {isOpen ? (
-                            <svg
-                                className="w-6 h-6"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M6 18L18 6M6 6l12 12"
-                                />
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         ) : (
-                            <svg
-                                className="w-6 h-6"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M4 6h16M4 12h16M4 18h16"
-                                />
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
                         )}
                     </button>
@@ -124,9 +137,10 @@ export default function Navbar() {
                                 href={link.href}
                                 onClick={() => setIsOpen(false)}
                                 className={`block px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
-                                    ${
-                                        pathname === link.href
-                                            ? "bg-blue-600 text-white shadow-md"
+                                    ${pathname === link.href
+                                        ? "bg-blue-600 text-white shadow-md"
+                                        : link.href === "/ai"
+                                            ? "text-purple-400 hover:bg-purple-700 hover:text-white"
                                             : "text-gray-300 hover:bg-gray-700 hover:text-white"
                                     }`}
                             >
@@ -134,15 +148,34 @@ export default function Navbar() {
                             </Link>
                         ))}
 
-                        {/* Auth Button (Mobile) */}
+                        {/* Auth Section (Mobile) */}
                         {isLoggedIn() ? (
-                            <button
-                                id="mobile-logout-btn"
-                                onClick={handleLogout}
-                                className="block w-full text-left px-4 py-2 rounded-lg text-sm font-medium bg-red-600 text-white hover:bg-red-700 transition-all duration-200 cursor-pointer"
-                            >
-                                Logout
-                            </button>
+                            <div className="px-4 py-2 flex items-center gap-2">
+                                {/* Google Avatar Mobile */}
+                                {user?.image ? (
+                                    <Image
+                                        src={user.image}
+                                        alt={user.username || "User"}
+                                        width={28}
+                                        height={28}
+                                        className="rounded-full border-2 border-gray-600"
+                                    />
+                                ) : (
+                                    <div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold">
+                                        {(user?.username || user?.email || "U")[0].toUpperCase()}
+                                    </div>
+                                )}
+                                <span className="text-gray-300 text-sm flex-1 truncate">
+                                    {user?.username || user?.email?.split("@")[0]}
+                                </span>
+                                <button
+                                    id="mobile-logout-btn"
+                                    onClick={handleLogout}
+                                    className="px-3 py-1.5 rounded-lg text-sm font-medium bg-red-600 text-white hover:bg-red-700 transition-all duration-200 cursor-pointer"
+                                >
+                                    Logout
+                                </button>
+                            </div>
                         ) : (
                             <Link
                                 href="/login"

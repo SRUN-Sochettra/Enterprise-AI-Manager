@@ -1,35 +1,28 @@
 export default function TableSkeleton({ rows = 5, columns = 6 }) {
     return (
-        <div className="bg-gray-800 border border-gray-700 rounded-xl shadow-lg overflow-hidden animate-pulse">
-            {/* Table Header Skeleton */}
-            <div className="bg-gray-700 px-6 py-4">
-                <div className="h-5 w-40 bg-gray-600 rounded" />
+        <div className="glass-card rounded-2xl border border-white/5 overflow-hidden animate-shimmer">
+            <div className="px-5 py-4 border-b border-white/5">
+                <div className="h-4 w-32 bg-white/5 rounded-lg" />
             </div>
-
             <div className="overflow-x-auto">
-                <table className="w-full text-sm text-left">
-                    <thead className="border-b border-gray-600">
+                <table className="w-full">
+                    <thead className="border-b border-white/5">
                         <tr>
                             {Array.from({ length: columns }).map((_, i) => (
-                                <th key={i} className="px-6 py-3">
-                                    <div className="h-3 w-20 bg-gray-600 rounded" />
+                                <th key={i} className="px-5 py-3.5">
+                                    <div className="h-3 w-16 bg-white/5 rounded" />
                                 </th>
                             ))}
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-700">
-                        {Array.from({ length: rows }).map((_, rowIndex) => (
-                            <tr key={rowIndex}>
-                                {Array.from({ length: columns }).map((_, colIndex) => (
-                                    <td key={colIndex} className="px-6 py-4">
+                    <tbody>
+                        {Array.from({ length: rows }).map((_, r) => (
+                            <tr key={r} className="border-b border-white/3">
+                                {Array.from({ length: columns }).map((_, c) => (
+                                    <td key={c} className="px-5 py-4">
                                         <div
-                                            className={`h-4 bg-gray-700 rounded ${
-                                                colIndex === 0
-                                                    ? "w-12"
-                                                    : colIndex === 1
-                                                    ? "w-32"
-                                                    : "w-24"
-                                            }`}
+                                            className="h-4 bg-white/5 rounded-lg"
+                                            style={{ width: c === 0 ? 40 : c === 1 ? 120 : 80 }}
                                         />
                                     </td>
                                 ))}
