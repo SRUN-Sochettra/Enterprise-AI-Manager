@@ -10,7 +10,7 @@
 [![Gemini](https://img.shields.io/badge/AI-Gemini_2.5-4285F4?style=for-the-badge&logo=google-gemini)](https://deepmind.google/technologies/gemini/)
 
 **Enterprise AI Manager** is a premium, high-performance management platform designed to streamline employee and product operations. By integrating state-of-the-art AI models, it transforms raw data into actionable insights, provides natural language interactions, and automates repetitive tasks.
-<img width="1366" height="768" alt="NexusCover" src="https://github.com/user-attachments/assets/8ff202a4-8dd2-4ad8-b1e9-43c3e1d391c7" />
+<img width="1366" height="768" alt="NexusCover" src="https://github.com/user-attachments/assets/2566cade-3a8f-4357-8c81-cf121ca7633a" />
 
 
 
