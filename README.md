@@ -1,4 +1,4 @@
-<img width="1366" height="768" alt="NexusCover" src="https://github.com/user-attachments/assets/2146cbd7-6b3d-48af-b29f-fcbb86bf21d0" /># 🚀 Enterprise AI Manager
+# 🚀 Enterprise AI Manager
 
 ## Used with Basic-SpringBoot for backend [Basic-SpringBoot](https://github.com/SRUN-Sochettra/Basic-SpringBoot.git)
 
@@ -10,7 +10,8 @@
 [![Gemini](https://img.shields.io/badge/AI-Gemini_2.5-4285F4?style=for-the-badge&logo=google-gemini)](https://deepmind.google/technologies/gemini/)
 
 **Enterprise AI Manager** is a premium, high-performance management platform designed to streamline employee and product operations. By integrating state-of-the-art AI models, it transforms raw data into actionable insights, provides natural language interactions, and automates repetitive tasks.
-<img width="1366" height="768" alt="NexusCover" src="https://github.com/user-attachments/assets/b1affb54-e98d-471f-b182-e12e80f850fe" />
+<img width="1366" height="768" alt="NexusCover" src="https://github.com/user-attachments/assets/8ff202a4-8dd2-4ad8-b1e9-43c3e1d391c7" />
+
 
 
 ---
